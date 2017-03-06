@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Homework_ajax</title>
+</head>
+<body>
+	<style>
+		.categories {
+			text-align: center;
+			background-color: green;
+			padding-top: 25px;
+			padding-bottom: 25px;
+		}
+		.categories a {
+			text-decoration: none;
+			text-transform: uppercase;
+			color: black;
+			background-color: #fff;
+			font-style: italic;
+			font-weight: bold;
+			padding: 10px;
+			margin-left: 15px;
+			border-radius: 5px;
+		}
+		.view {
+			text-align: center;
+			padding-left: 50px;
+			padding-right: 50px;
+		}
+		.view img {
+			padding: 20px 20px 0;
+		}
+	</style>
+	<div class="categories">
+		<a id="home" href="home.html">Главная</a>
+		<a id="city" href="city.html">Города</a>
+		<a id="people" href="people.html">Люди</a>
+		<a id="nature" href="nature.html">Природа</a>
+		<a id="animals" href="animals.html">Животные</a>
+	</div>
+	<div class="view">
+		<img src="img/city-1.jpg" alt="city-1">
+		<img src="img/people-1.jpg" alt="people-1">
+		<img src="img/nature-1.jpg" alt="nature-1">
+		<img src="img/animals-1.jpg" alt="animals-1">
+	</div>
+
+	<script>
+    var categories = document.querySelector(".categories");
+    var view = document.querySelector(".view");
+    categories.addEventListener("click", loadView);
+    function loadView (event) {
+    	var target = event && event.target || window.event.srcElement;
+			var href = target.getAttribute("href");
+			event.preventDefault();
+    	var xmlhttp = new XMLHttpRequest();
+    	xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+          view.innerHTML = "";
+          view.innerHTML = xmlhttp.responseText;
+        }
+      }
+      xmlhttp.open("GET", href);
+      xmlhttp.send();   
+    }
+	</script>
+</body>
+</html>
